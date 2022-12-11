@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset ="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--自動適應裝置介面大小-->
+        <title>Wisdom_plant</title>
+        <link href="https://fonts.googleapis.com/css?family=Dosis&display=swap" rel="stylesheet">
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap');
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Dosis', sans-serif;   
+            }
+            body{
+                min-height: 120vh;
+                background: linear-gradient(#85d8a7,#e0e9e1);
+            }
+            .li_set1 ul{
+                position: absolute;
+                width: 100%;
+                padding: 20px;
+                font-size: 100px;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+            }
+            .li_set2 ul{
+                position: absolute;
+                width: 100%;
+                padding: 180px;
+                z-index: 10000;
+                font-size: 25px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            header ul li{
+                list-style: none;
+                margin-left: 20px;   
+            }
+            header ul li a{
+                text-decoration: none;
+                padding: 6px 15px;
+                color: #fff;
+                border-radius: 20px;
+            }
+            header ul li a:hover{
+                background: #fff;
+                color: #000;
+            }
+            section{
+                position: relative;
+                width: 100%;
+                height: 100vh;
+                padding: 100px;
+            }
+            section ul h3{
+                position: absolute;
+                top: 250px;
+                left: 200px;
+                font-size: 60px;
+                color: #fff;
+            }
+            section ul p{
+                position: absolute;
+                top: 350px;
+                left: 200px;
+                font-size: 25px;
+                color: #fff;
+            }
+            section img{
+                position: absolute;
+                top: 330px;
+                left: 700px;
+                object-fit: cover;
+                width: 40%;
+            }
+            span{
+                color: #B7FF4A
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            
+        </div>
+        <header>
+            <div class="li_set1">
+                <ul>
+                    <li><a href="#" class="title">Wisdom<span>Plant</span></a></li>
+                </ul>
+            </div>
+            <div class="li_set2">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="http://127.0.0.1:3000/home/about">About</a></li>
+                    <li><a href="http://127.0.0.1:3000/home/temp">Monitor</a></li>
+                </ul>
+            </div>
+        </header>
+        <section>
+            <ul>
+                <h3><span>Intr</span>oduce</h3>
+                <p>工作壓力大、生活步調快，在繁忙擁擠的生活之中，喘息的機會是不是逐漸減少了呢？<br>因此我們決定結合智慧與自然，創造出能自動觀測與調控環境因子的植栽，讓人們能在<br>繁忙中也能輕鬆培育出植物，感受著自然的芬芳。<br><br>
+                    這是一項能夠自動監控盆栽環境的系統，智慧植物可用於感測室內中的濕度、光線強度<br>的數值，並連結到我們的WisdomPlant，便可隨時監控室內多盆植栽的生長狀況，並即時<br>了解植物的需求，包括是否需要澆水、施肥或光照等，透過這樣的方式讓我們在養殖盆<br>栽上面能夠更加的簡單且便利，進而創造出良好的室內環境。</p>
+            </ul>
+        </section>
+    </body>
+</html>

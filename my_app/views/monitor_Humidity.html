@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="refresh" content="10" >
+        <meta charset ="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--自動適應裝置介面大小-->
+        <title>Wisdom_plant</title>
+        <link href="https://fonts.googleapis.com/css?family=Dosis&display=swap" rel="stylesheet">
+        
+        <style>
+               @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap');
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Dosis', sans-serif;   
+        }
+        body{
+            min-height: 150vh;
+            background: linear-gradient(#85d8a7,#e0e9e1);
+        }
+        .li_set1 ul{
+            position: relative;
+            width: 100%;
+            top: 20px;
+            font-size: 100px;
+            display: flex;
+            justify-content: space-around;
+
+        }
+        .li_set2 ul{
+            position: relative;
+            width: 100%;
+            top: 50px;
+            z-index: 10000;
+            font-size: 25px;
+            display: flex;
+            justify-content: space-around;
+        }
+        .li_set3 ul{
+            position: relative;
+            width: 100%;
+            top: 100px;
+            z-index: 10000;
+            font-size: 25px;
+            display: flex;
+            justify-content: space-around;
+        }
+        header ul li{
+            list-style: none;
+        }
+        header ul li a{
+            text-decoration: none;
+            padding: 6px 15px;
+            color: #fff;
+            border-radius: 20px;
+        }
+        header ul li a:hover{
+            background: #fff;
+            color: #000;
+        }
+        .set_hover{
+            background: #fff;
+            color: #000;
+        }
+        section{
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            padding: 100px;
+        }
+        span{
+            color: #B7FF4A
+        }
+        </style>
+        <script>
+            window.onload = function() {
+    
+            console.log("LOADED");
+            
+            //Configuration variables
+            var updateInterval = 500 //in ms
+            var numberElements = 10;
+            
+            //Globals
+            var updateCount = 0;
+        
+            // Chart Objects
+            var xAccelChart = $("#xAccelChart");
+            //chart instances & configuration
+              var commonOptions = {
+                scales: {
+                    //xAxes: [{
+                    //  type: 'string',
+                    //  time: {
+                    //    displayFormats: {
+                    //      second: '0'
+                    //    }
+                    //  }
+                    //}],
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                 },
+                  legend: {display: false},
+                  tooltips:{
+                enabled: true
+                  }
+             };
+            var xAccelChartInstance = new Chart(xAccelChart, {
+                type: 'line',
+                data: {
+                    labels:[],
+                    datasets: [{
+                        label: "Humidity",
+                        data: 0,
+                        fill: false,
+                        borderColor: '#00BB00',
+                        backgroundColor:'#00BB00',
+                        borderWidth: 1
+                    }]
+                },
+                options: Object.assign({}, commonOptions, {
+                    title:{
+                    display: true,
+                    text: "",
+                    fontSize: 5
+                    }
+                 })
+            });    
+            function addData(data) {
+                if(data){
+                    count = data['count'] + 1
+                    for(i=1;i<count;i++){
+                        console.log("Update Data");
+                        date_set = timestamp_transfort(data[`${i}`]['date']);
+                        xAccelChartInstance.data.labels.push(date_set);
+                        xAccelChartInstance.data.datasets.forEach((dataset) =>{dataset.data.push(data[`${i}`]['humidity'])});
+                    }
+                if(updateCount > numberElements){
+                    xAccelChartInstance.data.labels.shift();
+                    xAccelChartInstance.data.datasets[0].data.shift();
+                }
+                else updateCount=updateCount+1;
+                xAccelChartInstance.update();
+                }
+            };
+            //時間戳轉換器 timestamp -> date_now
+            function timestamp_transfort(timestamp_get){
+                let data_ob = new Date(timestamp_get);
+
+                // adjust 0 before single digit date
+                let date = ("0" + data_ob.getDate()).slice(-2);
+                // current month
+                let month = ("0" + (data_ob.getMonth() + 1)).slice(-2);
+                // current year
+                let year = data_ob.getFullYear();
+                // current hours
+                let hours = data_ob.getHours();
+                // current minutes
+                let minutes = data_ob.getMinutes();
+                // current seconds
+                let seconds = data_ob.getSeconds();
+                //取得當下時間(年月日時分秒)
+                let data_now = hours + ":" + minutes;
+                //console.log(data_now);
+                return data_now;
+            };
+            $.getJSON('http://127.0.0.1:3000/data_source.json',addData);
+            }
+        </script>
+        <style>
+            
+            .container{
+            display:flex;
+            position: relative;
+            top: 150px;
+            left: 150px;
+            width: 1000px;
+            background: linear-gradient(#c6f8da, #e4f6eb);
+            z-index: 10000;
+        }
+        
+        .label{
+            flex:1;
+            vertical-align: middle;
+            text-align: center;
+        }
+        
+        .x{
+            flex:3;
+            text-align: center;
+            background-color: #fff;
+            margin: 10px;
+            background: linear-gradient(#ffffff, #92e3b3);
+        }
+        .h1_picture{
+            text-align: center;
+        }
+        
+        </style>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    </head>
+    <body>
+        <header>
+            <div class="li_set1">
+                <ul>
+                    <li><a href="#">Wisdom<span>Plant</span></a></li>
+                </ul>
+            </div>
+            <div class="li_set2">
+                <ul>
+                    <li><a href="http://127.0.0.1:3000/home">Home</a></li>
+                    <li><a href="http://127.0.0.1:3000/home/about">About</a></li>
+                    <li><a href="#">Monitor</a></li>
+                </ul>
+            </div>
+            <div class="li_set3">
+                <ul>
+                    <li><a href="http://127.0.0.1:3000/home/temp">Temperature</a></li>
+                    <li><a href="http://127.0.0.1:3000/home/humidity" class="set_hover">Humidity</a></li>
+                    <li><a href="http://127.0.0.1:3000/home/dust">Dust</a></li>
+                    <li><a href="http://127.0.0.1:3000/home/light">LightDR</a></li>
+                    <li><a href="http://127.0.0.1:3000/home/WM">WaterMotor</a></li>
+                    <li><a href="http://127.0.0.1:3000/home/mintor/amount">DataList</a></li>
+                </ul>
+            </div>
+            <div id="accelContainer" class="container">
+                <div id="xAccel" class="x">
+                    <canvas id="xAccelChart"></canvas>
+                </div>
+            </div>
+        </header>
+    </body>
+</html>
